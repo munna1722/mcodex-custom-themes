@@ -28,7 +28,7 @@ add_action('wp_enqueue_scripts', 'ali_css_js_file_calling');
  // Theme Function
  function mcodex_customizer_register($wp_customize){
   $wp_customize->add_section('mcodex_header_area', array(
-    'title' =>__('New Header Area', 'mcodex'),
+    'title'       =>__('New Header Area', 'mcodex'),
     'description' => 'If you interested to update your header area, you can do it here.'
   ));
 
@@ -37,12 +37,26 @@ add_action('wp_enqueue_scripts', 'ali_css_js_file_calling');
   ));
 
   $wp_customize-> add_control(new WP_Customize_Image_Control($wp_customize, 'mcodex_logo', array(
-    'label' => 'Logo Upload',
+    'label'       => 'Logo Upload',
     'description' => 'If you interested to change or update your logo you can do it.',
-    'setting' => 'mcodex_loge',
-    'section' => 'mcodex_header_area',
+    'setting'     => 'mcodex_loge',
+    'section'     => 'mcodex_header_area',
   ) ));
+
+  $wp_customize->add_setting('header_bg', array(
+    'dafult'    => '#fff',
+    'transport' => 'refresh',
+  ));
+   
+  $wp_customize->add_control(new WP_Customize_color_control($wp_customize, 'header_background_color', array(
+     'label'    =>__('Header Background Color', 'mcodex'),
+     'section'  => 'mcodex_header_area',
+     'settings' => 'header_bg',
+  )));
 
   
  }
  add_action('customize_register', 'mcodex_customizer_register');
+
+ // Menu Register
+  register_nav_menu('main_menu',__('Main Menu', 'alihossain') );
